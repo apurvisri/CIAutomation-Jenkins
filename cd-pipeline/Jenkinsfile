@@ -19,8 +19,8 @@ pipeline {
 //Steps
 
 def buildApp() {
-    def containerName = ''
-    def port = ''
+    containerName = ''
+    port = ''
 
     if ("${envirmonment}" == 'dev') {
         containerName = "app_dev"
