@@ -2,7 +2,7 @@
 #FROM alpine
 FROM python:alpine
 
-WORKDIR /Users/apurvisrivastava/Desktop/Apurvi/Jenkins/cd-pipeline
+WORKDIR /Users/apurvisrivastava/Desktop/Apurvi/Jenkins/CIAutomation-Jenkins/cd-pipeline
 
 COPY . .
 
