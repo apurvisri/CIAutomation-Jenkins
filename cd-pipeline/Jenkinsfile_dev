@@ -8,29 +8,12 @@ pipeline {
     }
 // 1st goes to this and invoke build function
     stages {
-
-        stage {
-            steps { runUnittests() }
-        }
-
         stage("Build") {
             steps { buildApp() }
         }
-    
+// 3rd goes to this stage and invoke deploy function having parameter environment passes value
         stage("Deploy - Dev") {
             steps { deploy('dev') }
-        }
-
-        stage("Test - UAT Dev") {
-            steps { runUAT(8888) }
-        }
-
-        stage("Deploy - Stage") {
-            steps { deploy('stage') }
-        }
-
-        stage("Test - UAT Stage") {
-            steps { runUAT(88) }
         }
     }
 }
@@ -54,12 +37,6 @@ def deploy(environment) {
         containerName = "app_dev"
         port = "8888"
     }
-
-    else if ("${environment}" == 'stage') {
-        containerName = "app_stage"
-        port = "88"
-    }
-
     else {
         println "Environment is not valid"
         System.exit(0)
@@ -68,13 +45,4 @@ def deploy(environment) {
     sh "docker ps -f name=${containerName} -q | xargs docker stop"
     sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
     sh "docker run -d -p ${port}:5000 --name ${containerName} apurvisri/earthgif:${BUILD_NUMBER} "
-}
-
-def runUnittests() {
-    sh "pip install --trusted-host pypi.python.org -r ./cd-pipeline/requirement.txt"
-    sh "python ./cd-pipeline/tests/test_flask_app.py"
-}
-
-def runUAT(port) {
-    sh "cd-pipeline/tests/runUAT.sh ${port}"
 }
