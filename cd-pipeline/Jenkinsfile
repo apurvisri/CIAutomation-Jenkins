@@ -8,7 +8,7 @@ pipeline {
     }
 // This allows to inject env variable to all the stages of the pipeline. PYTHONPATH is the variable to make 
 //python modules available from import from any python script    
-    envirmnment {
+    environment {
         PYTHONPATH = "${WoRKSPACE}/cd-pipeline"
     }
     
