@@ -6,13 +6,18 @@ pipeline {
     options {
         disableConcurrentBuilds()
     }
-// 1st goes to this and invoke build function
+// This allows to inject env variable to all the stages of the pipeline. PYTHONPATH is the variable to make 
+//python modules available from import from any python script    
+    envirmnment {
+        PYTHONPATH = "${WoRKSPACE}/cd-pipeline"
+    }
+    
     stages {
-
-        stage {
+// Test the python code with unit test
+        stage("Test - Unit tests") {
             steps { runUnittests() }
         }
-
+//Test the Deployment to Dev and stage with User Acceptance test (UAT) 
         stage("Build") {
             steps { buildApp() }
         }
