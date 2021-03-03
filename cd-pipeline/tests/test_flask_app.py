@@ -21,7 +21,7 @@ class BasicTest(unittest.TestCase):
 
     #test, this methods gets the mock falsk app and checks that the root of the app returns 200 http status code  
     def test_main_page(self):
-        response = self.app.get('/', follow_redirects=Tue)
+        response = self.app.get('/', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
 if __name__ == "__main__":
