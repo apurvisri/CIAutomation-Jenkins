@@ -77,9 +77,11 @@ def deploy(environment) {
 
 def runUnittests() {
     sh "pip install --trusted-host pypi.python.org -r ./cd-pipeline/requirement.txt"
+    sh "chmod +x cd-pipeline/tests/test_flask_app.py"
     sh "python ./cd-pipeline/tests/test_flask_app.py"
 }
 
 def runUAT(port) {
+    sh "chmod +x cd-pipeline/tests/runUAT.sh"
     sh "cd-pipeline/tests/runUAT.sh ${port}"
 }
