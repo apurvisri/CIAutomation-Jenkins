@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#This script runs the UAT test or end to end test
+
 #set Variable 
 hostname='localhost'
 port=$1
