@@ -13,7 +13,7 @@ sleep 5
 status_code=$(curl --write-out %{http_code} --out /dev/null --silent ${hostname}:${port})
 
 
-if [$http_code == 200 ];
+if [$status_code == 200 ];
 then 
     echo "PASS: ${hostname}:${port} is reachable"
 else
