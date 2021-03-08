@@ -42,11 +42,11 @@ pipeline {
         stage("Approve") {
             steps { approve() }
         }
-    
+    // 1st comes to this, check for function
         stage("Deploy - Live") {
             steps { deploy('live') }
         }
-
+   // 3rd step to check for runUAT function
         stage("Test - UAT Live") {
             steps { runUAT(80) }
         }
@@ -63,6 +63,7 @@ def buildApp() {
     }
 }
 // this uses parameter which binds with variable in this function
+// 2nd comes to check for function
 def deploy(environment) {
     // define variable with empty string
     def containerName = ''
@@ -106,6 +107,7 @@ def runUnittests() {
     sh "python ./cd-pipeline/tests/test_flask_app.py"
 }
 
+// 4th step 
 def runUAT(port) {
     sh "chmod +x cd-pipeline/tests/runUAT.sh"
     sh "cd-pipeline/tests/runUAT.sh ${port}"
