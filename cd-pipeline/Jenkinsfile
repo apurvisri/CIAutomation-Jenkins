@@ -37,11 +37,12 @@ pipeline {
         stage("Test - UAT Stage") {
             steps { runUAT(88) }
         }
-        
+    //This stage invokes the function approve, it uses DSL instruction timeout to set deployment period of 1 day, 
+    
         stage("Approve") {
             steps { approve() }
         }
-        
+    
         stage("Deploy - Live") {
             steps { deploy('live') }
         }
@@ -92,6 +93,7 @@ def deploy(environment) {
     sh "docker run -d -p ${port}:5000 --name ${containerName} apurvisri/earthgif:${BUILD_NUMBER} "
 }
 
+//this means pipeline will wait for users manual input for for 1 day before aborting the stage and hence pipeline
 def approve() {
     timeout(time:1, unit:'DAYS') {
         input('Do you want to deploy to live')
